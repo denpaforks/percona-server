@@ -821,3 +821,12 @@ extern LEX_STRING opt_mandatory_roles;
 extern bool opt_mandatory_roles_cache;
 extern bool opt_always_activate_granted_roles;
 #endif /* MYSQLD_INCLUDED */
+
+#if defined(__FreeBSD__) || defined(__DragonFly__)
+#ifndef s6_addr16
+#define s6_addr16 __u6_addr.__u6_addr16
+#endif
+#ifndef s6_addr32
+#define s6_addr32 __u6_addr.__u6_addr32
+#endif
+#endif

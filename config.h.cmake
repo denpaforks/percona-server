@@ -90,6 +90,7 @@
 #cmakedefine HAVE_FCNTL 1
 #cmakedefine HAVE_FDATASYNC 1
 #cmakedefine HAVE_DECL_FDATASYNC 1
+#cmakedefine HAVE_FPSETMASK 0
 #cmakedefine HAVE_FEDISABLEEXCEPT 1
 #cmakedefine HAVE_FSEEKO 1
 #cmakedefine HAVE_FSYNC 1

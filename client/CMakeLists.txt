@@ -28,14 +28,14 @@ INCLUDE_DIRECTORIES(SYSTEM ${READLINE_INCLUDE_DIR})
 
 ## Subdirectory with common client code.
 ADD_SUBDIRECTORY(base)
-## Subdirectory for mysqlpump code.
-ADD_SUBDIRECTORY(dump)
 
+IF(FALSE)
 MYSQL_ADD_EXECUTABLE(mysql completion_hash.cc mysql.cc readline.cc ../sql-common/sql_string.cc pattern_matcher.cc ${CMAKE_SOURCE_DIR}/sql/net_ns.cc)
 TARGET_LINK_LIBRARIES(mysql perconaserverclient)
 IF(UNIX)
   TARGET_LINK_LIBRARIES(mysql ${MY_READLINE_LIBRARY})
 ENDIF(UNIX)
+ENDIF()
 
 IF(NOT WITHOUT_SERVER)
   MYSQL_ADD_EXECUTABLE(mysql_upgrade upgrade/program.cc)
@@ -57,6 +57,7 @@ ADD_DEPENDENCIES(mysqltest GenError GenClientError)
 ADD_CONVENIENCE_LIBRARY(mysqlcheck_core check/mysqlcheck_core.cc)
 TARGET_LINK_LIBRARIES(mysqlcheck_core perconaserverclient)
 
+IF(FALSE)
 MYSQL_ADD_EXECUTABLE(mysqlcheck check/mysqlcheck.cc)
 TARGET_LINK_LIBRARIES(mysqlcheck mysqlcheck_core)
 
@@ -69,7 +70,9 @@ TARGET_LINK_LIBRARIES(mysqlimport perconaserverclient)
 
 MYSQL_ADD_EXECUTABLE(mysqlshow mysqlshow.cc)
 TARGET_LINK_LIBRARIES(mysqlshow perconaserverclient)
+ENDIF()
 
+IF(FALSE)
 MYSQL_ADD_EXECUTABLE(mysqlbinlog mysqlbinlog.cc)
 SET(MYSQLBINLOG_LIB_SOURCES
   ${CMAKE_SOURCE_DIR}/strings/decimal.cc
@@ -111,12 +114,15 @@ TARGET_LINK_LIBRARIES(mysqlslap perconaserverclient)
 
 MYSQL_ADD_EXECUTABLE(mysql_config_editor mysql_config_editor.cc)
 TARGET_LINK_LIBRARIES(mysql_config_editor perconaserverclient)
+ENDIF()
 
 MYSQL_ADD_EXECUTABLE(mysql_secure_installation mysql_secure_installation.cc)
 TARGET_LINK_LIBRARIES(mysql_secure_installation perconaserverclient)
 
+IF(FALSE)
 MYSQL_ADD_EXECUTABLE(mysql_ssl_rsa_setup mysql_ssl_rsa_setup.cc path.cc logger.cc)
 TARGET_LINK_LIBRARIES(mysql_ssl_rsa_setup mysys mysys_ssl)
+ENDIF()
 
 # "WIN32" also covers 64 bit. "echo" is used in some files below "mysql-test/".
 IF(WIN32)

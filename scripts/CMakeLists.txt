@@ -384,6 +384,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
           GET_FILENAME_COMPONENT(lib "${lib}" NAME_WE)
           STRING(REGEX REPLACE "^lib" "" lib "${lib}")
           SET(${var} "${${var}}-l${lib} " )
+        ELSEIF(lib STREQUAL "-pthread")
+          SET(${var} "${${var}}-pthread " )
         ELSE()
           SET(${var} "${${var}}-l${lib} " )
         ENDIF()
@@ -470,14 +472,12 @@ ELSE()
 
   IF(WITH_SYSTEMD)
     SET(BIN_SCRIPTS
-      mysql_config
       mysqldumpslow
       ps_mysqld_helper
       ps-admin
       )
   ELSE()
     SET(BIN_SCRIPTS
-      mysql_config
       mysqldumpslow
       mysqld_multi
       mysqld_safe
@@ -513,7 +513,7 @@ ELSE()
   FOREACH(file ${BIN_SCRIPTS})
     IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh)
       CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh
-        ${CMAKE_CURRENT_BINARY_DIR}/${file} ESCAPE_QUOTES @ONLY)
+        ${CMAKE_CURRENT_BINARY_DIR}/${file} @ONLY)
     ELSEIF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file})
       CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}
          ${CMAKE_CURRENT_BINARY_DIR}/${file} COPYONLY)

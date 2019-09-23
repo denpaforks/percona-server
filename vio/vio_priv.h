@@ -82,3 +82,12 @@ bool vio_ssl_has_data(Vio *vio);
 #endif /* HAVE_OPENSSL */
 
 #endif /* VIO_PRIV_INCLUDED */
+
+#if defined(__FreeBSD__) || defined(__DragonFly__)
+#ifndef s6_addr16
+#define s6_addr16 __u6_addr.__u6_addr16
+#endif
+#ifndef s6_addr32
+#define s6_addr32 __u6_addr.__u6_addr32
+#endif
+#endif
